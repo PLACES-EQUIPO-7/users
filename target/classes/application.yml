@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: users
+
+mongo:
+  conn:
+    host: localhost
+    port: 27017
+    database: users
+    user: tom
+    password: polita123
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
