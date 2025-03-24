@@ -10,6 +10,8 @@ import com.places.users.utils.mappers.UserMapper;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,14 @@ public class UsersService {
     }
 
     public UserDTO getUserById(String id) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            System.out.println(((UserDetails) principal).getUsername());
+        } else {
+            System.out.println(principal); // En caso de que sea solo un String (en algunos casos)
+        }
 
         UserEntity user = userRepository.findById(id);
 

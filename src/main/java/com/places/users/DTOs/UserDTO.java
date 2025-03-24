@@ -1,14 +1,12 @@
 package com.places.users.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.places.users.model.PlacesInfo;
 import com.places.users.utils.enums.DNIType;
+import com.places.users.utils.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
@@ -40,5 +38,7 @@ public class UserDTO {
     @Email
     private String email;
 
-    private PlacesInfo placesInfo;
+    @NotNull(message = "role is required")
+    private UserRole role;
+
 }

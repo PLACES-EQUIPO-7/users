@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 
-public enum PlaceRole {
+public enum UserRole {
 
-    ADMIN("admin"),
-    OWNER("owner"),
-    EMPLOYEE("employee");
+    STANDARD_USER("standard_user"),
+    ADMIN("admin");
 
-    PlaceRole(String value) {
+    UserRole(String value) {
         this.value = value;
     }
 
@@ -21,8 +20,8 @@ public enum PlaceRole {
         return value;
     }
 
-    public static PlaceRole fromValue(String value) {
-        return Arrays.stream(PlaceRole.values())
+    public static UserRole fromValue(String value) {
+        return Arrays.stream(UserRole.values())
                 .filter(role -> role.value.equalsIgnoreCase(value))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No se encontró PlaceRole para el valor: " + value));

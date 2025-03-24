@@ -2,9 +2,8 @@ package com.places.users.utils.mappers;
 
 import com.places.users.DTOs.CreateUserDTO;
 import com.places.users.DTOs.UserDTO;
-import com.places.users.model.PlacesInfo;
 import com.places.users.model.UserEntity;
-import com.places.users.utils.enums.PlaceRole;
+import com.places.users.utils.enums.UserRole;
 import lombok.experimental.UtilityClass;
 
 import java.time.Instant;
@@ -23,7 +22,7 @@ public class UserMapper {
                 .username(createUserDTO.getUserName())
                 .password(createUserDTO.getPassword())
                 .email(createUserDTO.getEmail())
-                .placesInfo(createUserDTO.getPlacesInfo())
+                .role(createUserDTO.getRole())
                 .updatedAt(Instant.now())
                 .createdAt(Instant.now())
                 .build();
@@ -38,23 +37,8 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .userName(user.getUsername())
                 .email(user.getEmail())
-                .placesInfo(user.getPlacesInfo())
+                .role(user.getRole())
                 .build();
     }
 
-    public static List<Map<String, String>> buildPlaceUserRelationsClaim(List<PlacesInfo.PlaceUserRelation> placeUserRelations) {
-        return placeUserRelations
-                .stream()
-                .map(e -> Map.of(e.getId(), e.getRole().getValue()))
-                .toList();
-    }
-
-    public static PlacesInfo buildPlacesInfoFromClaim(List<Map<String, String>> placeUserRelations) {
-        List<PlacesInfo.PlaceUserRelation> placeUserRelations1 = placeUserRelations
-                .stream()
-                .flatMap(e -> e.entrySet().stream().map(entry -> new PlacesInfo.PlaceUserRelation(entry.getKey(), PlaceRole.fromValue(entry.getValue()))))
-                .toList();
-
-        return new PlacesInfo(placeUserRelations1);
-    }
 }

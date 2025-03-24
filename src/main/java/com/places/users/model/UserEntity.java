@@ -3,6 +3,7 @@ package com.places.users.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.places.users.utils.Constants;
 import com.places.users.utils.enums.DNIType;
+import com.places.users.utils.enums.UserRole;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -41,8 +42,8 @@ public class UserEntity {
     @Field(Constants.USER.EMAIL)
     private String email;
 
-    @Field(Constants.USER.PLACES_INFO)
-    private PlacesInfo placesInfo;
+    @Field(Constants.USER.ROLE)
+    private UserRole role;
 
     @Field(Constants.USER.CREATED_AT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")

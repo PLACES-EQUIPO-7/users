@@ -38,7 +38,7 @@ public class UsersSecurityService implements UserDetailsService {
                         true,
                         grantedAuthorities,
                         user.getId(),
-                        user.getPlacesInfo()
+                        user.getRole()
                 );
     }
 }

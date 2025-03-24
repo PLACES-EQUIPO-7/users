@@ -33,12 +33,12 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    //TODO validar usuario admin
     @GetMapping()
     public ResponseEntity<UserDTO> getUserById(@RequestParam(value = "user_id") String userId) {
 
         UserDTO userDTO = usersService.getUserById(userId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
+
 }

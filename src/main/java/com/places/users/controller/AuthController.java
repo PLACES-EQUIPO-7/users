@@ -31,6 +31,7 @@ public class AuthController {
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(login);
+
         String jwt = this.jwtUtil.create(authentication);
 
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
