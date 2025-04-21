@@ -6,10 +6,10 @@ spring:
 mongo:
   conn:
     host: my-cluster.xksc7jt.mongodb.net
-    port: 27017
-    database: users
-    user: tomi
-    password: polita123
+    port: ${DB_PORT}
+    database: ${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
 
 logging:
   level:

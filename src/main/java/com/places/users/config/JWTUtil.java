@@ -38,8 +38,8 @@ public class JWTUtil {
     private final Algorithm ALGORITHM;
 
     public JWTUtil() throws Exception {
-        RSAPrivateKey PRIVATE_KEY = RSAKeyLoader.loadPrivateKey("./private_key.pem");
-        RSAPublicKey PUBLIC_KEY = RSAKeyLoader.loadPublicKey("./public_key.pem");
+        RSAPrivateKey PRIVATE_KEY = RSAKeyLoader.loadPrivateKey("../keys/private_key.pem");
+        RSAPublicKey PUBLIC_KEY = RSAKeyLoader.loadPublicKey("../keys/public_key.pem");
         ALGORITHM = Algorithm.RSA256(PUBLIC_KEY, PRIVATE_KEY);
     }
 
