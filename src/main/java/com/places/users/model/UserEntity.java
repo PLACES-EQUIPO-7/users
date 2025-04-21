@@ -6,6 +6,8 @@ import com.places.users.utils.enums.DNIType;
 import com.places.users.utils.enums.UserRole;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,6 +19,11 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "user")
+@CompoundIndexes({
+    @CompoundIndex(name = "dni_type_idx", 
+                   def = "{'dni' : 1, 'dni_type': 1}",
+                   unique = true)
+})
 public class UserEntity {
 
     @Id

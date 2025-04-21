@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum DNIType {
 
     CC("cc"),
+    CE("ce"),
     TI("ti");
 
     DNIType(String value) {

@@ -6,6 +6,7 @@ import com.places.users.exceptions.DataNotFoundException;
 import com.places.users.model.UserEntity;
 import com.places.users.repository.mongo.UserRepository;
 import com.places.users.utils.Constants;
+import com.places.users.utils.enums.ErrorCode;
 import com.places.users.utils.mappers.UserMapper;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -64,7 +65,7 @@ public class UsersService {
         UserEntity user = userRepository.findById(id);
 
         if(Objects.isNull(user)) {
-            throw new DataNotFoundException("User not found");
+            throw new DataNotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
         }
 
         return buildUserDTOFromUser(user);

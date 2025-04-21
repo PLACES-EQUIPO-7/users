@@ -9,11 +9,19 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class ApiException extends RuntimeException {
 
-    private HttpStatus httpStatus;
+    private final HttpStatus httpStatus;
 
-    private ErrorCode errorCode;
+    private final ErrorCode errorCode;
 
     public ApiException(String message) {
         super(message);
+        this.errorCode = ErrorCode.USER_NOT_FOUND;
+        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+    public ApiException(String message, HttpStatus httpStatus, ErrorCode errorCode) {
+        super(message);
+        this.httpStatus = httpStatus;
+        this.errorCode = errorCode;
     }
 }

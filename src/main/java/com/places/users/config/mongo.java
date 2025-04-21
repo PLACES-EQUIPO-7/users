@@ -17,7 +17,7 @@ public class mongo {
         String port = env.getProperty("mongo.conn.port");
         String user = env.getProperty("mongo.conn.user");
         String password = env.getProperty("mongo.conn.password");
-        String url = String.format("mongodb://%s:%s@%s:%s", user, password, host, port);
+        String url = String.format("mongodb+srv://%s:%s@%s/?retryWrites=true&w=majority&appName=my-cluster", user, password, host);
 
         return MongoClients.create(url);
     }

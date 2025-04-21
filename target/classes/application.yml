@@ -2,16 +2,20 @@ spring:
   application:
     name: users
 
+
 mongo:
   conn:
-    host: localhost
+    host: my-cluster.xksc7jt.mongodb.net
     port: 27017
     database: users
-    user: tom
+    user: tomi
     password: polita123
 
 logging:
   level:
     org.springframework.security: DEBUG
+
+server:
+  port: 8081
 
 

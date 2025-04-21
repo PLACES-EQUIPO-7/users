@@ -49,7 +49,7 @@ public class JWTUtil {
 
         return JWT.create()
                 .withSubject(userDetails.getUserId())
-                .withIssuer("test")
+                .withIssuer("places-users")
                 .withIssuedAt(Instant.now())
                 .withExpiresAt(Instant.now().plus(10, ChronoUnit.HOURS))
                 .withClaim("role", userDetails.getRole().getValue())
