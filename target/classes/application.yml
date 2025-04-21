@@ -18,4 +18,6 @@ logging:
 server:
   port: 8081
 
-
+jwt:
+  private-key-path: ${PRIVATE_KEY_PATH}
+  public-key-path: ${PUBLIC_KEY_PATH}

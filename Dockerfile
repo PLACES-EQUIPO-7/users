@@ -16,5 +16,5 @@ RUN mkdir ./logs
 
 COPY --from=builder /app/target/users-0.0.1-SNAPSHOT.jar /app/users-0.0.1-SNAPSHOT.jar
 
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "pep-1.0.jar"]
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "users-0.0.1-SNAPSHOT.jar"]

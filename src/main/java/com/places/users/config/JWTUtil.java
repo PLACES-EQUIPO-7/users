@@ -6,6 +6,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.places.users.service.UserDetailsEntity;
 import com.places.users.utils.RSAKeyLoader;
 import com.places.users.utils.mappers.UserMapper;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -35,11 +37,18 @@ import java.util.stream.Collectors;
 @Component
 public class JWTUtil {
 
-    private final Algorithm ALGORITHM;
+    @Value( "${jwt.private-key-path}")
+    private String privateKeyPath;
 
-    public JWTUtil() throws Exception {
-        RSAPrivateKey PRIVATE_KEY = RSAKeyLoader.loadPrivateKey("../keys/private_key.pem");
-        RSAPublicKey PUBLIC_KEY = RSAKeyLoader.loadPublicKey("../keys/public_key.pem");
+    @Value( "${jwt.public-key-path}")
+    private String publicKeyPath;
+
+    private Algorithm ALGORITHM;
+
+    @PostConstruct
+    public void init() throws Exception {
+        RSAPrivateKey PRIVATE_KEY = RSAKeyLoader.loadPrivateKey(privateKeyPath);
+        RSAPublicKey PUBLIC_KEY = RSAKeyLoader.loadPublicKey(publicKeyPath);
         ALGORITHM = Algorithm.RSA256(PUBLIC_KEY, PRIVATE_KEY);
     }
 
