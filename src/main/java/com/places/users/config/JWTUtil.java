@@ -7,6 +7,7 @@ import com.places.users.service.UserDetailsEntity;
 import com.places.users.utils.RSAKeyLoader;
 import com.places.users.utils.mappers.UserMapper;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,19 +35,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class JWTUtil {
 
-    @Value( "${jwt.private-key-path}")
-    private String privateKeyPath;
+    private final Algorithm ALGORITHM;
 
-    @Value( "${jwt.public-key-path}")
-    private String publicKeyPath;
-
-    private Algorithm ALGORITHM;
-
-    @PostConstruct
-    public void init() throws Exception {
+    public JWTUtil(@Value( "${jwt.private-key-path}") final String privateKeyPath,
+                   @Value( "${jwt.public-key-path}") final String publicKeyPath) throws Exception {
         RSAPrivateKey PRIVATE_KEY = RSAKeyLoader.loadPrivateKey(privateKeyPath);
         RSAPublicKey PUBLIC_KEY = RSAKeyLoader.loadPublicKey(publicKeyPath);
         ALGORITHM = Algorithm.RSA256(PUBLIC_KEY, PRIVATE_KEY);
@@ -74,6 +70,7 @@ public class JWTUtil {
                     .verify(jwt);
             return true;
         } catch (JWTVerificationException e) {
+            log.error("Token inválido: {}", e.getMessage());
             return false;
         }
 
