@@ -54,15 +54,19 @@ public class UsersService {
 
     public UserDTO getUserById(String id) {
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            System.out.println(((UserDetails) principal).getUsername());
-        } else {
-            System.out.println(principal); // En caso de que sea solo un String (en algunos casos)
-        }
 
         UserEntity user = userRepository.findById(id);
+
+        if(Objects.isNull(user)) {
+            throw new DataNotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
+        }
+
+        return buildUserDTOFromUser(user);
+    }
+
+    public UserDTO getUserByDNI(String id) {
+
+        UserEntity user = userRepository.findByDNI(id);
 
         if(Objects.isNull(user)) {
             throw new DataNotFoundException("User not found", ErrorCode.USER_NOT_FOUND);

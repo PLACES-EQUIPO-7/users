@@ -49,6 +49,9 @@ public class UserEntity {
     @Field(Constants.USER.EMAIL)
     private String email;
 
+    @Field(Constants.USER.TEL)
+    private String tel;
+
     @Field(Constants.USER.ROLE)
     private UserRole role;
 

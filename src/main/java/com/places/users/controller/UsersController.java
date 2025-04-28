@@ -41,4 +41,13 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 
+
+    @GetMapping(value = "/by/dni/{dni}")
+    public ResponseEntity<UserDTO> getUserByDNI(@PathVariable(value = "dni") String dni) {
+
+        UserDTO userDTO = usersService.getUserByDNI(dni);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+    }
+
 }

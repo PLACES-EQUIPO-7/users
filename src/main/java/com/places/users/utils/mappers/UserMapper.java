@@ -22,6 +22,7 @@ public class UserMapper {
                 .username(createUserDTO.getUserName())
                 .password(createUserDTO.getPassword())
                 .email(createUserDTO.getEmail())
+                .tel(createUserDTO.getTel())
                 .role(createUserDTO.getRole())
                 .updatedAt(Instant.now())
                 .createdAt(Instant.now())

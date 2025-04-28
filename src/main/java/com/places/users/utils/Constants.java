@@ -10,6 +10,7 @@ public interface Constants {
         String LAST_NAME = "last_name";
         String USERNAME = "user_name";
         String EMAIL = "email";
+        String TEL = "tel";
         String CREATED_AT = "created_at";
         String UPDATED_AT = "updated_at";
     }

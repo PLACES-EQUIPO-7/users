@@ -34,4 +34,10 @@ public class UserRepository {
         query.addCriteria(Criteria.where(Constants.USER.USERNAME).is(userName));
         return mongoTemplateUsers.findOne(query, UserEntity.class);
     }
+
+    public UserEntity findByDNI(String dni) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where(Constants.USER.DNI).is(dni));
+        return mongoTemplateUsers.findOne(query, UserEntity.class);
+    }
 }

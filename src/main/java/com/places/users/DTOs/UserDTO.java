@@ -38,6 +38,10 @@ public class UserDTO {
     @Email
     private String email;
 
+
+    @NotBlank(message = "tel is required")
+    private String tel;
+
     @NotNull(message = "role is required")
     private UserRole role;
 
