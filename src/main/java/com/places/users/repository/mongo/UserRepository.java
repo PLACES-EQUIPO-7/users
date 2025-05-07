@@ -35,6 +35,12 @@ public class UserRepository {
         return mongoTemplateUsers.findOne(query, UserEntity.class);
     }
 
+    public UserEntity findByEmail(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where(Constants.USER.EMAIL).is(email));
+        return mongoTemplateUsers.findOne(query, UserEntity.class);
+    }
+
     public UserEntity findByDNI(String dni) {
         Query query = new Query();
         query.addCriteria(Criteria.where(Constants.USER.DNI).is(dni));

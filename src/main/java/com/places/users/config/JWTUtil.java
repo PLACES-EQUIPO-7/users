@@ -3,6 +3,7 @@ package com.places.users.config;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.places.users.DTOs.UserDTO;
 import com.places.users.service.UserDetailsEntity;
 import com.places.users.utils.RSAKeyLoader;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,17 @@ public class JWTUtil {
                 .withIssuedAt(Instant.now())
                 .withExpiresAt(Instant.now().plus(10, ChronoUnit.HOURS))
                 .withClaim("role", userDetails.getRole().getValue())
+                .sign(ALGORITHM);
+    }
+
+    public String create(UserDTO userDTO) {
+
+        return JWT.create()
+                .withSubject(userDTO.getId())
+                .withIssuer("places-users")
+                .withIssuedAt(Instant.now())
+                .withExpiresAt(Instant.now().plus(10, ChronoUnit.HOURS))
+                .withClaim("role", userDTO.getRole().getValue())
                 .sign(ALGORITHM);
     }
 

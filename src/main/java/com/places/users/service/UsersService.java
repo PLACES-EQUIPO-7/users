@@ -8,11 +8,10 @@ import com.places.users.repository.mongo.UserRepository;
 import com.places.users.utils.Constants;
 import com.places.users.utils.enums.ErrorCode;
 import com.places.users.utils.mappers.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,7 @@ import java.util.Objects;
 import static com.places.users.utils.mappers.UserMapper.buildUserDTOFromUser;
 
 @Service
+@Slf4j
 public class UsersService {
 
     private UserRepository userRepository;
@@ -67,6 +67,17 @@ public class UsersService {
     public UserDTO getUserByDNI(String id) {
 
         UserEntity user = userRepository.findByDNI(id);
+
+        if(Objects.isNull(user)) {
+            throw new DataNotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
+        }
+
+        return buildUserDTOFromUser(user);
+    }
+
+    public UserDTO getUserBYEmail(String email) {
+        
+        UserEntity user = userRepository.findByEmail(email);
 
         if(Objects.isNull(user)) {
             throw new DataNotFoundException("User not found", ErrorCode.USER_NOT_FOUND);

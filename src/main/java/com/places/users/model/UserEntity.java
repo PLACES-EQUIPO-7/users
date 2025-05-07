@@ -18,6 +18,7 @@ import java.time.Instant;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Document(collection = "user")
 @CompoundIndexes({
     @CompoundIndex(name = "dni_type_idx", 
