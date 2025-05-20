@@ -21,7 +21,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(value = UnAuthorizedException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUnAuthorizedException(DataNotFoundException e) {
+    public ResponseEntity<ErrorResponseDTO> handleUnAuthorizedException(UnAuthorizedException e) {
 
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO();
         errorResponseDTO.setMessage(e.getMessage());

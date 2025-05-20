@@ -1,8 +1,10 @@
 package com.places.users.service;
 
+import com.places.users.DTOs.ChangePasswordDTO;
 import com.places.users.DTOs.CreateUserDTO;
 import com.places.users.DTOs.UserDTO;
 import com.places.users.exceptions.DataNotFoundException;
+import com.places.users.exceptions.UnAuthorizedException;
 import com.places.users.model.UserEntity;
 import com.places.users.repository.mongo.UserRepository;
 import com.places.users.utils.Constants;
@@ -15,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.places.users.utils.mappers.UserMapper.buildUserDTOFromUser;
@@ -99,5 +102,31 @@ public class UsersService {
     }
 
 
+    public void changePassword(ChangePasswordDTO changePasswordDTO) {
 
+        UserEntity user = userRepository.findById(changePasswordDTO.getUserId());
+
+        if (user == null) {
+            throw new DataNotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
+        }
+
+
+        if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
+            throw new UnAuthorizedException("Old password is incorrect", ErrorCode.UNAUTHORIZED);
+        }
+
+        Query query = new Query(Criteria.where("_id").is(user.getId()));
+        Update update = new Update();
+        update.set("password", passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+
+        userRepository.update(query, update);
+
+    }
+
+    public List<UserDTO> getUsersByIds(List<String> ids) {
+
+        List<UserEntity> users = userRepository.findByIds(ids);
+
+        return users.stream().map(UserMapper::buildUserDTOFromUser).toList();
+    }
 }

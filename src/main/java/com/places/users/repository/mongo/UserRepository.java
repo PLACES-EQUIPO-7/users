@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserRepository {
 
@@ -45,5 +47,11 @@ public class UserRepository {
         Query query = new Query();
         query.addCriteria(Criteria.where(Constants.USER.DNI).is(dni));
         return mongoTemplateUsers.findOne(query, UserEntity.class);
+    }
+
+    public List<UserEntity> findByIds(List<String> ids) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").in(ids));
+        return mongoTemplateUsers.find(query, UserEntity.class);
     }
 }

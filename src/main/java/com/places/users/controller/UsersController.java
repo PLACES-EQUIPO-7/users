@@ -1,11 +1,16 @@
 package com.places.users.controller;
 
+import com.places.users.DTOs.ChangePasswordDTO;
 import com.places.users.DTOs.CreateUserDTO;
 import com.places.users.DTOs.UserDTO;
+import com.places.users.DTOs.UserIdsDTO;
 import com.places.users.service.UsersService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -48,6 +53,23 @@ public class UsersController {
         UserDTO userDTO = usersService.getUserByDNI(dni);
 
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+    }
+
+    @PostMapping("/change/password")
+    public ResponseEntity<Void> post(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
+
+        usersService.changePassword(changePasswordDTO);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+    }
+
+    @PostMapping(value = "/get/users/by/ids")
+    public ResponseEntity<List<UserDTO>> getUserBYEmail(@Valid @RequestBody UserIdsDTO ids) {
+
+        List<UserDTO> userDTOs = usersService.getUsersByIds(ids.getUserIds());
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOs);
     }
 
 }
